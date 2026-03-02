@@ -1,0 +1,549 @@
+*, *::before, *::after {
+    box-sizing: border-box; /* Hace que padding y border no rompan los tamaños */
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* min-height en vez de height para que crezca si el contenido es grande */
+    width: 100vw;
+    overflow-x: hidden; /* Bloqueamos el scroll horizontal, el vertical puede funcionar */
+    background-color: #705037;
+    font-family: 'Quicksand', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Este es el librito, tiene dos columnas iguales */
+    width: 90vw;
+    height: 85vh;
+    gap: 0;
+    border-radius: 24px;
+    overflow: hidden; /* Para que los bordes redondeados funcionen y no se salga nada */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+/* ==========================================================================
+   TEXTOS Y TIPOGRAFÍA
+   ========================================================================== */
+
+h1 {
+    font-family: 'Fredoka', sans-serif;
+    color: #5d4037;
+    margin: 0;
+    font-size: clamp(18px, 4vw, 28px); /* Se hace más pequeño en pantallas chicas */
+}
+
+h2 {
+    font-family: 'Fredoka', sans-serif;
+    color: #5d4037;
+    font-size: clamp(18px, 3vw, 22px);
+    margin: 0;
+    margin-bottom: 8px;
+}
+
+h4 {
+    font-family: 'Quicksand', sans-serif;
+    color: #5d4037;
+    font-size: 16px;
+    margin: 0;
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+p {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 12px;
+    color: rgba(93, 64, 55, 0.7);
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.text-block {
+    text-align: center;
+}
+
+.vs {
+    font-size: 14px;
+}
+
+.subtitle {
+    margin: 0;
+    text-align: center;
+}
+
+.label_player, .vs {
+    margin: 0;
+    font-weight: bold;
+    color: #5d4037;
+}
+
+/* ==========================================================================
+   PÁGINAS DE LA IZQUIERDA (OPCIONES Y STATUS)
+   ========================================================================== */
+.options_page {
+    background-color: #EAE1D1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 32px 24px;
+    gap: 16px;
+    overflow-y: auto; /* Si el contenido es muy alto, aparece scroll solo en esa columna */
+}
+
+.players_container {
+    justify-content: center;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.player {
+    display: flex;
+    flex-direction: column; /* Para que el avatar esté arriba y el texto abajo */
+    align-items: center;
+    gap: 5px;
+}
+
+.player_avatar1 {
+    border: #ff4d4d77 2px solid;
+    border-radius: 8px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #EFE7D7;
+}
+
+.player_avatar2 {
+    border: #4d62ff74 2px solid;
+    border-radius: 8px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #EFE7D7;
+}
+
+.player_avatar {
+    font-size: 20px;
+}
+
+.timer_selection, .mode_selection {
+    display: flex;
+    gap: 8px;
+    margin: 6px 0;
+    flex-wrap: wrap; /* Los botones se acomodan solos si no caben en una fila */
+    justify-content: center;
+}
+
+.timer_selection button, .mode_selection button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    background-color: #F2ECE0;
+    color: #5d4037;
+    cursor: pointer;
+    border: 2px solid transparent;
+    font-family: 'Quicksand', sans-serif;
+    font-size: clamp(10px, 1.8vw, 12px);
+    box-shadow: 1px 1px 8px 1px #d9cbb279;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* El texto del botón no se parte en dos líneas */
+}
+
+.timer_selection button:hover, .mode_selection button:hover {
+    border: 2px solid #5d4037;
+}
+
+.selected_timer, .selected_mode {
+    border: 2px solid #5d4037 !important; /* Se usa !important para asegurar que los estilos de 'seleccionado' tengan prioridad sobre las reglas base y los estados :hover del botón. */
+    color: #5d4037 !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transform: scale(1.05);
+}
+
+.btn_jugar {
+    padding: 8px 20px;
+    border-radius: 8px;
+    border: none;
+    background-color: #5d4037;
+    color: white;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    font-size: clamp(12px, 2vw, 14px);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efecto de rebote al hacer hover */
+}
+
+.btn_jugar:hover {
+    background-color: #725239;
+    transform: scale(1.1);
+}
+
+/* ==========================================================================
+   ESTILOS PARA EL MARCADOR (STATUS PAGE)
+   ========================================================================== */
+.scoreboard {
+    display: flex;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 12px 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.score_item {
+    text-align: center;
+    min-width: 60px;
+}
+
+.score_item span {  
+    font-size: clamp(18px, 4vw, 22px); 
+}
+
+.score_item p { 
+    margin: 5px 0 0 0; 
+    font-weight: bold; 
+    font-size: clamp(12px, 2.5vw, 16px); 
+    color: #5d4037; 
+}
+
+.turn_info {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.game_controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.btn_secondary {
+    background: transparent;
+    border: 2px solid #5d4037;
+    color: #5d4037;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    font-size: clamp(12px, 2vw, 14px);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn_secondary:hover {
+    transform: scale(1.1);
+}
+
+/* ==========================================================================
+   PÁGINA DEL TABLERO (DERECHA)
+   ========================================================================== */
+.board_page {
+    background-color: #EFE7D7;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+#setup_section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.avatar_selection {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas para los ingredientes */
+    gap: 12px;
+    width: 100%;
+    max-width: 280px; /* Ancho máximo para que no se estire demasiado en pantallas grandes */
+}
+
+.select_btn {
+    position: relative; /* Para poder posicionar el número de jugador con ::after */
+    cursor: pointer;
+    padding: 14px;
+    border: 2px solid transparent; /* El borde se muestra solo al seleccionar o hacer hover */
+    border-radius: 10px;
+    background-color: #EAE1D1;
+    transition: all 0.2s ease; /* Transición suave para hover y selección */
+    box-shadow: 2px 2px 8px 2px #d9cbb2a7;
+    font-size: clamp(20px, 4vw, 24px);
+}
+
+.select_btn:hover {
+    transform: scale(1.1);
+    border-color: #5d4037;
+    background-color: #ECDCC2;
+}
+
+.selected_player1 {
+    border: 2px solid #ff4d4d !important;
+    box-shadow: 0 0 5px #ff4d4d;
+}
+
+.selected_player2 {
+    border: 2px solid #4d62ff !important;
+    box-shadow: 0 0 5px #4d62ff;
+}
+
+.selected_player1::after {
+    content: "1"; /* El número que indica el jugador */
+    position: absolute; top: -10px; right: -10px; /* Posición en la esquina superior derecha del botón */
+    width: 20px; height: 20px; border-radius: 50%; /* Círculo pequeño */
+    background-color: #ff4d4d;
+    color: white;
+    font-size: 10px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.selected_player2::after {
+    content: "2";
+    position: absolute; top: -10px; right: -10px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background-color: #4d62ff; color: white;
+    font-size: 10px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+/* ==========================================================================
+   EL TABLERO DE JUEGO
+   ========================================================================== */
+
+.timer_display {
+    text-align: center;
+    width: 100%; /* Asegura que ocupe todo el ancho para que el centrado funcione */
+    display: block; /* Asegura que el elemento se comporte como bloque para que el centrado funcione correctamente */
+}
+
+.board {
+    background-image: url('../img/soup.gif');
+    background-size: cover;
+    background-position: center;
+    /* Tamaño flexible: 400px en escritorio, se hace más pequeño en móvil */
+    width: min(350px, 85vw);
+    height: min(350px, 85vw);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 24px;
+}
+
+table { 
+    border-collapse: collapse;
+}
+
+.board input[type="button"] {
+    /* El tamaño de cada celda se calcula según el tablero: 20% del tamaño del tablero */
+    width: clamp(55px, 22vw, 75px);
+    height: clamp(55px, 22vw, 75px);
+    background-color: rgba(239, 231, 215, 0.4);
+    color: black;
+    border: 2px solid rgba(239, 231, 215, 0.1);
+    cursor: pointer;
+    margin: 2px;
+    border-radius: 12px;
+    font-size: clamp(24px, 6vw, 36px); /* El tamaño del emoji se ajusta al tamaño del botón */
+    transition: all 0.2s;
+}
+
+/* ==========================================================================
+   ANIMACIÓN DE SACUDIDA (para cuando intentan elegir ingrediente sin modo)
+   ========================================================================== */
+@keyframes shake {
+    0%   { transform: translateX(0); }
+    20%  { transform: translateX(-6px); }
+    40%  { transform: translateX(6px); }
+    60%  { transform: translateX(-4px); }
+    80%  { transform: translateX(4px); }
+    100% { transform: translateX(0); }
+}
+
+.shake {
+    animation: shake 0.5s ease;
+}
+
+/* ==========================================================================
+   ANIMACIÓN DE CELDAS GANADORAS
+   
+   Cuando alguien gana, las 3 celdas de la línea ganadora reciben una de
+   estas clases.
+     1. La celda se hace más grande (scale 1.25)
+     2. Cambia de color: rojo para J1, azul para J2/IA.
+     3. Pulsa hasta que se reinicie la ronda.
+
+   ========================================================================== */
+@keyframes pulso_ganador_p1 {
+    0%   { transform: scale(1);    background-color: rgba(239, 231, 215, 0.4); }
+    50%  { transform: scale(1.25); background-color: rgba(255, 77, 77, 0.75); }
+    100% { transform: scale(1);    background-color: rgba(239, 231, 215, 0.4); }
+}
+
+@keyframes pulso_ganador_p2 {
+    0%   { transform: scale(1);    background-color: rgba(239, 231, 215, 0.4); }
+    50%  { transform: scale(1.25); background-color: rgba(77, 98, 255, 0.75); }
+    100% { transform: scale(1);    background-color: rgba(239, 231, 215, 0.4); }
+}
+
+/* Clase que se agrega a las celdas ganadoras de J1 */
+.celda_ganadora_p1 {
+    animation: pulso_ganador_p1 0.6s ease-in-out infinite;
+    border-color: rgba(255, 77, 77, 0.9) !important;
+}
+
+/* Clase que se agrega a las celdas ganadoras de J2 o la IA */
+.celda_ganadora_p2 {
+    animation: pulso_ganador_p2 0.6s ease-in-out infinite;
+    border-color: rgba(77, 98, 255, 0.9) !important;
+}
+
+/* ==========================================================================
+   MODAL
+   ========================================================================== */
+   
+.modal_overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Siempre por encima de todo */
+    backdrop-filter: blur(4px); /* Efecto de desenfoque al fondo */
+}
+
+.modal_content {
+    background-color: #EAE1D1;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    width: 80%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* ==========================================================================
+   RESPONSIVIDAD: TABLETS (≤ 900px)
+   ========================================================================== */
+@media (max-width: 900px) {
+    .container {
+        grid-template-columns: 1fr 1fr; /* Sigue en dos columnas pero más compacto */
+        width: 96vw;
+        height: 90vh;
+    }
+
+    .options_page {
+        padding: 20px 14px;
+        gap: 10px;
+    }
+
+    .avatar_selection {
+        grid-template-columns: repeat(3, 1fr); /* 3 columnas en tablet */
+        max-width: 220px;
+        gap: 8px;
+    }
+
+    .select_btn {
+        padding: 10px;
+    }
+}
+
+
+/* ==========================================================================
+   RESPONSIVIDAD: MÓVIL (≤ 600px)
+   ========================================================================== */
+@media (max-width: 600px) {
+    body {
+        align-items: flex-start; /* El contenido empieza arriba para poder hacer scroll */
+        padding: 16px 0 32px 0;
+    }
+
+    .container {
+        grid-template-columns: 1fr; /* Una sola columna: todo apilado verticalmente */
+        width: 95vw;
+        height: auto; /* Altura automática, ya no fija */
+        border-radius: 16px;
+        overflow: visible; /* El contenido puede crecer */
+    }
+
+    /* En móvil, el tablero va arriba y el panel de config abajo */
+    .board_page {
+        order: 1;
+        border-radius: 16px 16px 0 0; /* Bordes redondeados solo arriba */
+        padding: 24px 16px;
+        height: auto;
+    }
+
+    .options_page {
+        order: 2;
+        border-radius: 0 0 16px 16px; /* Bordes redondeados solo abajo */
+        padding: 20px 16px 28px 16px;
+        gap: 14px;
+        height: auto;
+        overflow: visible;
+    }
+
+    /* El tablero se achica para caber en la pantalla */
+    .board {
+        width: min(320px, 88vw);
+        height: min(320px, 88vw);
+    }
+
+    .board input[type="button"] {
+        width: clamp(50px, 26vw, 80px);
+        height: clamp(50px, 26vw, 80px);
+        font-size: clamp(22px, 7vw, 32px);
+    }
+
+    /* Los botones de ingredientes en 3 columnas para que quepan */
+    .avatar_selection {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 260px;
+        gap: 10px;
+    }
+
+    .select_btn {
+        padding: 12px 8px;
+        font-size: clamp(22px, 7vw, 28px);
+    }
+
+    /* Los botones de timer en fila flexible */
+    .timer_selection {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    h1 {
+        font-size: clamp(18px, 6vw, 26px);
+    }
+}

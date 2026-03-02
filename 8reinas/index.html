@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8 Reinas</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Juego de 8 Reinas</h1>
+        
+        <div class="board-container">
+            <table id="chessboard">
+                <tr>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(0,0);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(0,1);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(0,2);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(0,3);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(0,4);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(0,5);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(0,6);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(0,7);"></td>
+                </tr>
+                <tr>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(1,0);"><img src="img/mouse.PNG" alt=""></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(1,1);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(1,2);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(1,3);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(1,4);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(1,5);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(1,6);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(1,7);"></td>
+                </tr>
+                <tr>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(2,0);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(2,1);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(2,2);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(2,3);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(2,4);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(2,5);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(2,6);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(2,7);"></td>
+                </tr>
+                <tr>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(3,0);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(3,1);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(3,2);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(3,3);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(3,4);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(3,5);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(3,6);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(3,7);"></td>
+                </tr>
+                <tr>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(4,0);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(4,1);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(4,2);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(4,3);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(4,4);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(4,5);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(4,6);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(4,7);"></td>
+                </tr>
+                <tr>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(5,0);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(5,1);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(5,2);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(5,3);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(5,4);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(5,5);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(5,6);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(5,7);"></td>
+                </tr>
+                <tr>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(6,0);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(6,1);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(6,2);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(6,3);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(6,4);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(6,5);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(6,6);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(6,7);"></td>
+                </tr>
+                <tr>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(7,0);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(7,1);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(7,2);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(7,3);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(7,4);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(7,5);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(7,6);"></td>
+                    <td onclick="cellClick(this)" onmouseover="cambiar(7,7);"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="counter">
+            Reinas colocadas: <span id="queenCount">0</span> / 8
+        </div>
+
+        <div class="controls">
+            <h3>Seleccione el tipo de reina:</h3>
+            <div class="button-group">
+                <button id="btn1" onclick="selectQueen('1', this)">♛ Reina 1</button>
+                <button id="btn2" class="active" onclick="selectQueen('2', this)">♕ Reina 2</button>
+                <button id="btn3" onclick="selectQueen('3', this)">♚ Reina 3</button>
+            </div>
+        </div>
+
+        <div class="controls">
+            <h3>Personalizar colores del tablero:</h3>
+            <div class="color-controls">
+                <div class="color-item">
+                    <label>Color claro:</label>
+                    <input type="color" id="color1" value="#eeeed2" onchange="updateColors()">
+                </div>
+                <div class="color-item">
+                    <label>Color oscuro:</label>
+                    <input type="color" id="color2" value="#769656" onchange="updateColors()">
+                </div>
+            </div>
+            <button class="reset-btn" onclick="resetBoard()">🔄 Reiniciar Tablero</button>
+        </div>
+    </div>
+
+    <script src="js/functions.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/functions.js" defer></script>
+    <title>Tic Tac Toe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="custom_modal" class="modal_overlay" style="display: none;">
+        <div class="modal_content">
+            <h2 id="modal_title">¡Título!</h2>
+            <p id="modal_message">Mensaje de la sopita.</p>
+            <button class="btn_jugar" onclick="closeModal()">Entendido</button>
+        </div>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="audio/music.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="clickSound">
+        <source src="audio/bubble_pop.mp3" type="audio/mpeg">
+    </audio>
+    <div class="container">
+        <!-- Página de opciones -->
+        <div class="options_page" id="options_page">
+            <h1>Sopita Tic Tac Toe</h1>
+
+            <h4 class="subtitle">Elige Modo de Juego</h4>
+
+            <div class="gameMode_container">
+                <p class="subtitle">Modo de Juego:</p>
+                <div class="mode_selection">
+                    <button onclick="setGameMode('one_player', this)">1 Chefcito</button>
+                    <button onclick="setGameMode('two_players', this)">2 Chefcitos</button>
+                </div>
+            </div>
+
+            <div>
+                <p class="subtitle">Ingredientes:</p>
+                <div class="players_container">
+                    <div class="player">
+                        <div id="p1_avatar" class="player_avatar1">?</div>
+                        <p class="label_player">J1</p>
+                    </div>
+                    <h3 class="vs">vs</h3>
+                    <div class="player">
+                        <div id="p2_avatar" class="player_avatar2">?</div>
+                        <p class="label_player">J2</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timer_container">
+                <p class="subtitle">Duración del Juego:</p>
+                <div class="timer_selection">
+                    <button onclick="setTimer(0, this)">Sin Timer</button>
+                    <button onclick="setTimer(30, this)">30s</button>
+                    <button onclick="setTimer(60, this)">1 min</button>
+                    <button onclick="setTimer(120, this)">2 min</button>
+                </div>
+            </div>
+
+            <button id="btn_jugar" class="btn_jugar" style="display:none;" onclick="showBoard()">¡A Cocinar!</button>
+        </div>
+
+        <!-- Página de status -->
+        <div class="options_page" id="status_page" style="display:none;">
+            <h1>¡Que hierva la sopita!</h1>
+
+            <div class="scoreboard">
+                <div class="score_item">
+                    <span id="p1_emoji_status"></span>
+                    <p>J1: <b id="p1_wins">0</b></p>
+                </div>
+                <div class="score_item">
+                    <span id="p2_emoji_status"></span>
+                    <p>J2: <b id="p2_wins">0</b></p>
+                </div>
+            </div>
+
+            <div class="turn_info">
+                <p class="subtitle">Turno de:</p>
+                <div id="active_player_indicator" class="player_avatar">?</div>
+            </div>
+
+            <div class="game_controls">
+                <button class="btn_jugar" onclick="resetBoard()">Otra Ronda</button>
+                <button class="btn_secondary" onclick="location.reload()">Cambiar Receta</button>
+            </div>
+        </div>
+
+        <!-- Página de ingredientes -->
+        <div class="board_page">
+            <div id="setup_section">
+                <div class="text-block">
+                    <h2>Ingredientes</h2>
+                    <p class="subtitle">Haz clic para elegir</p>
+                </div>
+                <div class="avatar_selection">
+                    <button class="select_btn" onclick="setAvatar('carrot', this)">🥕</button>
+                    <button class="select_btn" onclick="setAvatar('broccoli', this)">🥦</button>
+                    <button class="select_btn" onclick="setAvatar('corn', this)">🌽</button>
+                    <button class="select_btn" onclick="setAvatar('red-mushroom', this)">🍄</button>
+                    <button class="select_btn" onclick="setAvatar('brown-mushroom', this)">🍄‍🟫</button>
+                    <button class="select_btn" onclick="setAvatar('potato', this)">🥔</button>
+                </div>
+            </div>
+
+            <!-- Página del tablero -->
+            <div id="game_section" style="display:none;">
+                <div class="timer_display">
+                    <h1 id="display_time_game">00:00</h1>
+                </div>
+                <div class="board">
+                    <table>
+                        <tr>
+                            <td><input type="button" onclick="active(this)"></td>
+                            <td><input type="button" onclick="active(this)"></td>
+                            <td><input type="button" onclick="active(this)"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" onclick="active(this)"></td>
+                            <td><input type="button" onclick="active(this)"></td>
+                            <td><input type="button" onclick="active(this)"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="button" onclick="active(this)"></td>
+                            <td><input type="button" onclick="active(this)"></td>
+                            <td><input type="button" onclick="active(this)"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

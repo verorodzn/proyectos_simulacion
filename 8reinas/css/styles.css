@@ -1,0 +1,174 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.board-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+table {
+    border-collapse: collapse;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+td {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 40px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+td:hover {
+    transform: scale(1.05);
+    z-index: 10;
+    position: relative;
+}
+
+tr:nth-child(even) td:nth-child(even),
+tr:nth-child(odd) td:nth-child(odd) {
+    background-color: #769656;
+}
+
+tr:nth-child(odd) td:nth-child(even),
+tr:nth-child(even) td:nth-child(odd) {
+    background-color: #eeeed2;
+}
+
+.controls {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.controls h3 {
+    color: #555;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+button {
+    flex: 1;
+    min-width: 100px;
+    padding: 12px 20px;
+    border: 2px solid #667eea;
+    background: white;
+    color: #667eea;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+button:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+button.active {
+    background: #667eea;
+    color: white;
+}
+
+.color-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.color-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.color-item label {
+    color: #555;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+input[type="color"] {
+    width: 50px;
+    height: 40px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.counter {
+    text-align: center;
+    font-size: 1.2em;
+    color: #333;
+    font-weight: 600;
+    padding: 15px;
+    background: #e9ecef;
+    border-radius: 8px;
+}
+
+.counter span {
+    color: #667eea;
+    font-size: 1.4em;
+}
+
+.reset-btn {
+    width: 100%;
+    margin-top: 15px;
+    background: #dc3545;
+    color: white;
+    border-color: #dc3545;
+}
+
+.reset-btn:hover {
+    background: #c82333;
+    border-color: #c82333;
+}
