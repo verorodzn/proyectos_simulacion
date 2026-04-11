@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Juego del Caos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/functions.js" defer></script>
+</head>
+<body>
+
+<header>
+  <h1>Juego del Caos</h1>
+  <p>Actividad 6 — Triángulo de Sierpinski</p>
+</header>
+
+<div class="layout">
+
+  <!-- CANVAS donde se dibuja el fractal -->
+  <div class="canvas-wrap">
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <span class="canvas-label">Fractal Canvas · 500 × 500</span>
+  </div>
+
+  <!-- PANEL DE CONTROL -->
+  <div class="panel">
+
+    <!-- ESTADO -->
+    <div class="card">
+      <div class="card-title">Estado</div>
+
+      <!-- Contador de iteraciones -->
+      <div class="stat-block">
+        <span class="stat-label">Iteraciones</span>
+        <span class="stat-value" id="iter">0</span>
+      </div>
+
+      <!-- Dado: muestra el último vértice elegido aleatoriamente -->
+      <div class="dado-display">
+        <div class="dado-pill" id="dado">–</div>
+        <span class="dado-label">Último dado (1–6)</span>
+      </div>
+
+      <!-- Indicador corriendo / detenido -->
+      <div class="status-row" style="margin-top:12px">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">Detenido</span>
+      </div>
+    </div>
+
+    <!-- CONTROL -->
+    <div class="card">
+      <div class="card-title">Control</div>
+      <div class="btn-group">
+        <!-- Botón toggle: Iniciar/Detener -->
+        <button class="btn primary" id="btnToggle" onclick="toggleIniciar()">▶ Iniciar</button>
+        <!-- Botón Limpiar -->
+        <button class="btn danger" onclick="limpiar()">↺ Limpiar</button>
+      </div>
+    </div>
+
+    <!-- PARÁMETROS -->
+    <div class="card">
+      <div class="card-title">Parámetros</div>
+
+      <!-- Número de vértices del polígono -->
+      <div class="slider-group">
+        <div class="slider-header">
+          <span class="slider-name">Vértices (n)</span>
+          <span class="slider-val" id="valorN">3</span>
+        </div>
+        <input type="range" min="3" max="8" value="3" id="n" oninput="cambiarN()">
+      </div>
+
+      <!-- Proporción de avance hacia el vértice elegido -->
+      <div class="slider-group" style="margin-top:14px">
+        <div class="slider-header">
+          <span class="slider-name">Proporción (r)</span>
+          <span class="slider-val" id="valorP">0.5</span>
+        </div>
+        <input type="range" min="0.1" max="0.9" step="0.01" value="0.5" id="proporcion" oninput="cambiarProporcion()">
+      </div>
+    </div>
+
+    <!-- VELOCIDAD -->
+    <div class="card">
+      <div class="card-title">Velocidad</div>
+      <div class="seg-group">
+        <button class="seg-btn" onclick="setVelocidad(2, this)">Lento</button>
+        <button class="seg-btn active" onclick="setVelocidad(50, this)">Medio</button>
+        <button class="seg-btn" onclick="setVelocidad(300, this)">Rápido</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

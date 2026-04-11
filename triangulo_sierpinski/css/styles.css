@@ -1,0 +1,358 @@
+
+:root {
+--bg: #0a0a0f;             /* Fondo de la página */
+--surface: #111118;        /* Fondo de las tarjetas del panel */
+--border: #1e1e2e;         /* Color de bordes y separadores */
+--accent: #2563eb;         /* Color primario: azul */
+--accent-glow: rgba(37, 99, 235, 0.4);   /* Sombra/brillo del azul */
+--accent-hover: #1d4ed8;   /* Azul más oscuro para hover de botones */
+--accent2: #38bdf8;        /* Color secundario: cyan (para stats y acentos) */
+--accent2-glow: rgba(56, 189, 248, 0.15); /* Sombra/brillo del cyan */
+--text: #e2e8f0;           /* Texto principal (claro) */
+--text-muted: #64748b;     /* Texto secundario/apagado */
+--success: #34d399;        /* Verde para el indicador "corriendo" */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* BODY / LAYOUT PRINCIPAL */
+body {
+background: var(--bg); /* Se utiliza el color de fondo definido en :root */
+font-family: 'Space Mono', monospace;
+color: var(--text);
+min-height: 100vh;
+display: flex; /* Flexbox para centrar el contenido principal */
+flex-direction: column; /* Apilar verticalmente */
+align-items: center;
+justify-content: center;
+padding: 24px;
+
+/* Manchas de luz de fondo */
+background-image:
+    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(37,99,235,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, rgba(56,189,248,0.06) 0%, transparent 60%);
+}
+
+/* HEADER (Título y subtitulo) */
+header {
+text-align: center;
+margin-bottom: 28px;
+}
+
+/* Título principal */
+header h1 {
+font-family: 'Orbitron', sans-serif;
+font-weight: 800;
+font-size: clamp(1.6rem, 4vw, 2.4rem); /* Tamaño responsivo entre 1.6rem y 2.4rem */
+letter-spacing: -0.03em; /* Ajuste de kerning para que las letras estén más juntitas */
+background: linear-gradient(135deg, #60a5fa 0%, #38bdf8 100%); /* Degradado azul-cyan */
+-webkit-background-clip: text; /* Clip del fondo al texto para que el degradado solo se vea en las letras */
+-webkit-text-fill-color: transparent; /* Hace el texto transparente para mostrar el fondo */
+background-clip: text; /* Compatibilidad con otros navegadores */
+}
+
+/* Subtítulo */
+header p {
+font-size: 0.72rem;
+color: var(--text-muted);
+letter-spacing: 0.12em;
+text-transform: uppercase; /* Convierte el texto a mayúsculas */
+margin-top: 4px;
+}
+
+/* CONTENEDOR PRINCIPAL: Canvas + Panel */
+.layout {
+display: flex; /* Flexbox para colocar el canvas y el panel lado a lado */
+gap: 20px;
+align-items: flex-start; /* Alinea el panel al inicio del eje vertical para que quede alineado con el canvas */
+}
+
+/* CANVAS */
+/* Contenedor del lienzo con borde y sombra */
+.canvas-wrap {
+position: relative;
+border-radius: 14px;
+overflow: hidden;
+border: 1px solid var(--border);
+box-shadow: 0 0 0 1px rgba(37,99,235,0.2), 0 24px 60px rgba(0,0,0,0.6);
+}
+
+/* El <canvas> donde se dibujan los puntos del fractal */
+canvas {
+display: block;
+background: #07070d;
+}
+
+/* Etiqueta pequeña en la esquina inferior del canvas */
+.canvas-label {
+position: absolute;
+bottom: 10px;
+left: 14px;
+font-size: 0.6rem;
+color: var(--text-muted);
+letter-spacing: 0.1em;
+text-transform: uppercase;
+}
+
+/* PANEL DE CONTROL */
+.panel {
+width: 230px;
+display: flex;
+flex-direction: column;
+gap: 14px;
+}
+
+/* Tarjeta base */
+.card {
+background: var(--surface);
+border: 1px solid var(--border);
+border-radius: 12px;
+padding: 16px;
+}
+
+/* Título de sección dentro de la tarjeta */
+.card-title {
+font-family: 'Syne', sans-serif;
+font-size: 0.65rem;
+font-weight: 600;
+letter-spacing: 0.16em;
+text-transform: uppercase;
+color: var(--text-muted);
+margin-bottom: 12px;
+}
+
+/* ESTADO */
+.stat-block {
+display: flex;
+flex-direction: column;
+gap: 2px;
+}
+
+.stat-label {
+font-size: 0.6rem;
+color: var(--text-muted);
+letter-spacing: 0.1em;
+text-transform: uppercase;
+}
+
+/* Número grande de iteraciones */
+.stat-value {
+font-family: 'Syne', sans-serif;
+font-size: 1.9rem;
+font-weight: 800;
+color: var(--accent2);
+line-height: 1;
+transition: color 0.2s;
+}
+
+/* DADO VISUAL */
+/* Fila que muestra el último resultado del "dado" */
+.dado-display {
+display: flex;
+align-items: center;
+gap: 8px;
+margin-top: 10px;
+}
+
+/* Número del dado */
+.dado-pill {
+width: 36px;
+height: 36px;
+border-radius: 8px;
+background: var(--border);
+border: 1px solid rgba(37,99,235,0.35);
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: 'Syne', sans-serif;
+font-size: 1.1rem;
+font-weight: 800;
+color: var(--accent);
+transition: all 0.12s;
+}
+
+/* Estado "flash" del dado al tirar */
+.dado-pill.flash {
+background: rgba(37,99,235,0.2);
+border-color: var(--accent);
+box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.dado-label {
+font-size: 0.62rem;
+color: var(--text-muted);
+letter-spacing: 0.08em;
+}
+
+/* SLIDERS DE PARÁMETROS */
+.slider-group {
+display: flex;
+flex-direction: column;
+gap: 6px;
+}
+
+.slider-header {
+display: flex;
+justify-content: space-between;
+align-items: baseline;
+}
+
+.slider-name {
+font-size: 0.65rem;
+color: var(--text-muted);
+letter-spacing: 0.08em;
+}
+
+.slider-val {
+font-family: 'Syne', sans-serif;
+font-size: 0.85rem;
+font-weight: 700;
+color: var(--text);
+}
+
+input[type=range] {
+-webkit-appearance: none;
+width: 100%;
+height: 4px;
+border-radius: 99px;
+background: var(--border);
+outline: none;
+cursor: pointer;
+}
+
+/* Bolita del slider */
+input[type=range]::-webkit-slider-thumb {
+-webkit-appearance: none;
+width: 14px;
+height: 14px;
+border-radius: 50%;
+background: var(--accent);
+box-shadow: 0 0 8px var(--accent-glow);
+cursor: pointer;
+transition: transform 0.15s; /* Animación suave al interactuar con la bolita */
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+transform: scale(1.3);
+}
+
+/* BOTONES */
+/* Grid 2 columnas para los botones de la tarjeta Control */
+.btn-group {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 8px;
+}
+
+/* Botón secundario */
+.btn {
+padding: 9px 10px;
+border-radius: 8px;
+border: 1px solid var(--border);
+background: transparent;
+color: var(--text);
+font-family: 'Space Mono', monospace;
+font-size: 0.65rem;
+letter-spacing: 0.04em;
+cursor: pointer;
+transition: all 0.18s;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 5px;
+}
+
+.btn:hover {
+border-color: var(--accent);
+color: var(--accent2);
+background: rgba(37,99,235,0.1);
+}
+
+/* Botón primario */
+.btn.primary {
+grid-column: span 1;
+background: var(--accent);
+border-color: var(--accent);
+color: white;
+font-weight: 700;
+box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+.btn.primary:hover {
+background: var(--accent-hover);
+color: white;
+border-color: var(--accent-hover);
+box-shadow: 0 6px 28px rgba(37,99,235,0.5);
+transform: translateY(-1px);
+}
+
+.btn.primary:active { transform: translateY(0); }
+
+/* Hover del botón peligroso (Limpiar) */
+.btn.danger:hover {
+border-color: #f87171;
+color: #f87171;
+background: rgba(248,113,113,0.07);
+}
+
+/* SELECTOR DE VELOCIDAD */
+.seg-group {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 6px;
+}
+
+/* Botón */
+.seg-btn {
+padding: 7px 4px;
+border-radius: 7px;
+border: 1px solid var(--border);
+background: transparent;
+color: var(--text-muted);
+font-family: 'Space Mono', monospace;
+font-size: 0.6rem;
+letter-spacing: 0.04em;
+cursor: pointer;
+transition: all 0.15s;
+text-align: center;
+}
+
+.seg-btn.active,
+.seg-btn:hover {
+border-color: var(--accent2);
+color: var(--accent2);
+background: var(--accent2-glow);
+}
+
+/* INDICADOR DE ESTADO (puntito animado) */
+.status-row {
+display: flex;
+align-items: center;
+gap: 6px;
+font-size: 0.6rem;
+color: var(--text-muted);
+letter-spacing: 0.08em;
+text-transform: uppercase;
+}
+
+/* Punto de estado: gris cuando está detenido */
+.status-dot {
+width: 7px;
+height: 7px;
+border-radius: 50%;
+background: var(--text-muted);
+transition: background 0.3s;
+}
+
+/* Punto verde pulsante cuando el fractal está corriendo */
+.status-dot.running {
+background: var(--success);
+box-shadow: 0 0 8px rgba(52,211,153,0.5);
+animation: pulse 1.2s infinite;
+}
+
+/* Animación de pulso del punto verde */
+@keyframes pulse {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.4; }
+}
