@@ -1,174 +1,478 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+
+/* 1. VARIABLES DE TEMA:
+
+   Cada tema define colores del tablero, acento y emoji de reina.
+   La clase en <body> activa el tema correspondiente.
+
+*/
+
+:root {
+  /* Tema activo por defecto: Abeja */
+  --cell-light:    #fef9c3;
+  --cell-dark:     #fbbf24;
+  --accent:        #d97706;
+  --accent-soft:   #fef3c7;
+  --queen-emoji:   "🐝";
+
+  /* Colores de estado */
+  --queen-bg:      #4ade80;
+  --queen-ring:    #16a34a;
+
+  /* Fondo y UI */
+  --bg:            #eef2f7;
+  --bg2:           #dde4ef;
+  --surface:       #f8fafd;
+  --surface2:      #eef2f7;
+  --border:        #c5d0e0;
+  --text-main:     #1e2d40;
+  --text-muted:    #5a7190;
+  --shadow:        rgba(30, 60, 100, 0.10);
+
+  --radius-sm:  8px;
+  --radius:     14px;
+  --radius-lg:  20px;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
+/* Tema Abeja 🐝 */
+body.bee {
+  --cell-light:  #fefce8;
+  --cell-dark:   #fde68a;
+  --accent:      #eeb053;
+  --accent-soft: #fefce8;
+  --queen-emoji: "🐝";
 }
+
+/* Tema Psotre 🧁 */
+body.sweet {
+  --cell-light:  #fdf2f8;
+  --cell-dark:   #fbcfe8;
+  --accent:      #d8719c;
+  --accent-soft: #fdf2f8;
+  --queen-emoji: "🧁";
+}
+
+/* Tema Nube ☁️ */
+body.cloud {
+  --cell-light:  #f0f9ff;
+  --cell-dark:   #bae6fd;
+  --accent:      #4588c7;
+  --accent-soft: #f0f9ff;
+  --queen-emoji: "☁️";
+}
+
+/* 2. RESET Y BASE */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: white;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+  font-family: 'Quicksand', sans-serif;
+  background-color: var(--bg);
+  /* Patrón de puntitos */
+  background-image: radial-gradient(#b8c8dc 1px, transparent 1px);
+  background-size: 24px 24px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 16px 48px;
+  color: var(--text-main);
 }
 
-.container {
-    background: white;
-    border-radius: 20px;
-    padding: 40px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    max-width: 600px;
-}
-
+/* 3. TIPOGRAFÍA Y TÍTULO */
 h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 30px;
-    font-size: 2em;
+  font-family: 'Fredoka One';
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 28px;
+  letter-spacing: 0.5px;
 }
 
-.board-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
+/* 4. LAYOUT PRINCIPAL */
+.main-layout {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 900px;
 }
 
-table {
-    border-collapse: collapse;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    overflow: hidden;
+/* 5. TABLERO Y CELDAS */
+.board-section {
+  display: flex;
+  flex-direction: column;
 }
 
-td {
-    width: 60px;
-    height: 60px;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 40px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    user-select: none;
+/* Etiquetas de columna (a–h) */
+.col-labels {
+  display: flex;
+  margin-bottom: 2px;
+}
+.col-labels span {
+  width: 58px;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
 }
 
-td:hover {
-    transform: scale(1.05);
-    z-index: 10;
-    position: relative;
+/* Cada fila del tablero */
+.board-row {
+  display: flex;
+  align-items: center;
 }
 
-tr:nth-child(even) td:nth-child(even),
-tr:nth-child(odd) td:nth-child(odd) {
-    background-color: #769656;
+/* Etiqueta de fila (8–1) */
+.row-label {
+  width: 30px;
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--text-muted);
 }
 
-tr:nth-child(odd) td:nth-child(even),
-tr:nth-child(even) td:nth-child(odd) {
-    background-color: #eeeed2;
+/* Bloque Tablero */
+#board {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow:
+    0 12px 32px var(--shadow),
+    0 12px 12px rgba(111, 112, 124, 0.08);
+  border: 1px solid var(--border);
 }
 
-.controls {
-    background: #f8f9fa;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
+/* Celda individual */
+.cell {
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  cursor: pointer;
+  position: relative;
+  /* Transición para todos los cambios */
+  transition: filter 0.12s ease, transform 0.12s ease, background-color 0.18s ease;
+  user-select: none;
 }
 
-.controls h3 {
-    color: #555;
-    margin-bottom: 15px;
-    font-size: 1.1em;
+/* Hover en celdas libres */
+.cell:hover:not(.blocked):not(.queen) {
+  filter: brightness(1.12);
+  transform: scale(1.07);
+  z-index: 5;
 }
 
-.button-group {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
+/* 6. ESTADOS DE CELDA */
+
+/* PREVIEW DE HOVER (.hovered-attack):
+   Cuando el mouse pasa por una celda libre, JS marca con esta clase
+   todas las celdas que SERÍAN atacadas. Parpadean suavemente.
+*/
+.cell.hovered-attack::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(251, 146, 60, .7);
+  pointer-events: none;
+  animation: hoverBlink 0.7s ease-in-out infinite alternate;
 }
 
-button {
-    flex: 1;
-    min-width: 100px;
-    padding: 12px 20px;
-    border: 2px solid #667eea;
-    background: white;
-    color: #667eea;
-    border-radius: 8px;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: 600;
+@keyframes hoverBlink {
+  from { opacity: 0.3; }
+  to   { opacity: 1;   }
 }
 
-button:hover {
-    background: #667eea;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+/* ATACADA (reina ya colocada):
+   Overlay rojo transparente. Más oscuro que el preview
+   para que se note la diferencia entre "si pusiera" vs "ya puse".
+*/
+.cell.attacked {
+  position: relative;
+}
+.cell.attacked::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(200, 40, 20, 0.42);
+  pointer-events: none;
+  transition: background 0.18s ease;
 }
 
-button.active {
-    background: #667eea;
-    color: white;
+/* Hover sobre una celda ya atacada: se aclara un poco */
+.cell.attacked:not(.blocked):hover::after {
+  background: rgba(200, 40, 20, 0.25);
 }
 
-.color-controls {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+/* BLOQUEADA (atacada + no se puede colocar) */
+.cell.blocked {
+  cursor: not-allowed;
+}
+.cell.blocked:hover {
+  transform: none;
+  filter: none;
 }
 
-.color-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+/* CON REINA:
+   Verde para que resalte sobre cualquier color de tema.
+*/
+.cell.queen {
+  background-color: var(--queen-bg) !important;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 3px var(--queen-ring);
+}
+.cell.queen::before {
+  content: var(--queen-emoji);
+  font-size: 30px;
+  animation: queenPop 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25));
+}
+.cell.queen:hover {
+  filter: brightness(1.08);
+  transform: scale(1.05);
+  z-index: 5;
 }
 
-.color-item label {
-    color: #555;
-    font-weight: 500;
-    white-space: nowrap;
+/* 7. PANEL LATERAL Y TARJETAS */
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 230px;
+  min-width: 210px;
 }
 
-input[type="color"] {
-    width: 50px;
-    height: 40px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  border: 1.5px solid var(--border);
+  box-shadow: 0 2px 12px var(--shadow);
 }
 
+.card-title {
+  font-family: 'Fredoka One';
+  font-size: 1.05rem;
+  color: var(--accent);
+  margin-bottom: 10px;
+  letter-spacing: 0.3px;
+}
+
+.card-hint {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+/* 8. CONTADOR Y BARRA DE PROGRESO */
 .counter {
-    text-align: center;
-    font-size: 1.2em;
-    color: #333;
-    font-weight: 600;
-    padding: 15px;
-    background: #e9ecef;
-    border-radius: 8px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.counter .num {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2.4rem;
+  color: var(--accent);
+  line-height: 1;
+}
+.counter .den {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-left: 4px;
+}
+.counter-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
 }
 
-.counter span {
-    color: #667eea;
-    font-size: 1.4em;
+/* Barra de progreso */
+.progress-track {
+  height: 8px;
+  background: var(--bg2);
+  border-radius: 99px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  border-radius: 99px;
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* 9. TEMAS, SOLUCIONES Y LEYENDA */
+
+/* Botones */
+.theme-buttons {
+  display: flex;
+  gap: 8px;
+}
+.theme-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 4px;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface2);
+  color: var(--text-main);
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: border-color 0.18s, background 0.18s, transform 0.15s;
+  font-family: 'Quicksand';
+  font-weight: 700;
+}
+.theme-btn span {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+.theme-btn:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.theme-btn.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+/* Botones de soluciones */
+.solutions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.sol-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  color: var(--text-main);
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, border-color 0.15s, transform 0.12s;
+}
+.sol-btn:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  transform: translateX(3px);
+}
+.sol-num {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1rem;
+  color: var(--accent);
+  min-width: 16px;
+}
+
+/* 10. BOTÓN REINICIO */
 .reset-btn {
-    width: 100%;
-    margin-top: 15px;
-    background: #dc3545;
-    color: white;
-    border-color: #dc3545;
+  width: 100%;
+  padding: 11px;
+  border-radius: 12px;
+  font-family: 'Quicksand';
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+  background: #ffffff;
+  border: 1.5px solid #ef4444;
+  color: #ef4444;
 }
 
 .reset-btn:hover {
-    background: #c82333;
-    border-color: #c82333;
+  background: #fef2f2;
+  border-color: #dc2626;
+  color: #dc2626;
+}
+
+.reset-btn:active {
+  background: #fee2e2;
+}
+
+/* 11. BANNER DE VICTORIA */
+.win-msg {
+  display: none;
+  width: 100%;
+  max-width: 750px;
+  text-align: center;
+  padding: 18px 32px;
+  border-radius: 16px;
+  background: #dcfce7;
+  border: 2px solid #86efac;
+  margin-bottom: 22px;
+  animation: fadeSlideIn 0.45s cubic-bezier(0.34,1.4,0.64,1) both;
+  box-sizing: border-box;
+}
+
+.win-msg.show {
+  display: block;
+}
+
+.win-msg .win-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.6rem;
+  color: #166534;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.win-msg .win-sub {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #16a34a;
+  display: block;
+}
+
+/* 12. ANIMACIONES */
+
+/* Pop de reina al colocarse */
+@keyframes queenPop {
+  from { transform: scale(0) rotate(-25deg); opacity: 0; }
+  to   { transform: scale(1) rotate(0deg);   opacity: 1; }
+}
+
+/* Aparición del mensaje de victoria */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0)  scale(1);     }
+}
+
+/* 13. RESPONSIVO */
+@media (max-width: 620px) {
+  .cell {
+    width: 42px;
+    height: 42px;
+    font-size: 20px;
+  }
+  .cell.queen::before { font-size: 22px; }
+  .col-labels span    { width: 42px; }
+  .row-label          { width: 24px; }
+  .panel {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .card { flex: 1; min-width: 140px; }
 }

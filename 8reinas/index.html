@@ -1,129 +1,99 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>8 Reinas</title>
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8 Reinas </title>
+  <link
+  href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;700&display=swap"
+  rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body>
-    <div class="container">
-        <h1>🎯 Juego de 8 Reinas</h1>
-        
-        <div class="board-container">
-            <table id="chessboard">
-                <tr>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(0,0);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(0,1);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(0,2);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(0,3);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(0,4);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(0,5);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(0,6);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(0,7);"></td>
-                </tr>
-                <tr>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(1,0);"><img src="img/mouse.PNG" alt=""></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(1,1);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(1,2);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(1,3);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(1,4);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(1,5);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(1,6);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(1,7);"></td>
-                </tr>
-                <tr>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(2,0);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(2,1);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(2,2);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(2,3);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(2,4);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(2,5);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(2,6);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(2,7);"></td>
-                </tr>
-                <tr>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(3,0);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(3,1);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(3,2);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(3,3);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(3,4);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(3,5);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(3,6);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(3,7);"></td>
-                </tr>
-                <tr>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(4,0);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(4,1);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(4,2);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(4,3);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(4,4);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(4,5);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(4,6);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(4,7);"></td>
-                </tr>
-                <tr>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(5,0);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(5,1);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(5,2);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(5,3);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(5,4);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(5,5);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(5,6);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(5,7);"></td>
-                </tr>
-                <tr>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(6,0);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(6,1);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(6,2);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(6,3);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(6,4);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(6,5);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(6,6);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(6,7);"></td>
-                </tr>
-                <tr>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(7,0);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(7,1);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(7,2);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(7,3);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(7,4);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(7,5);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(7,6);"></td>
-                    <td onclick="cellClick(this)" onmouseover="cambiar(7,7);"></td>
-                </tr>
-            </table>
-        </div>
 
-        <div class="counter">
-            Reinas colocadas: <span id="queenCount">0</span> / 8
-        </div>
+<body class="bee">
 
-        <div class="controls">
-            <h3>Seleccione el tipo de reina:</h3>
-            <div class="button-group">
-                <button id="btn1" onclick="selectQueen('1', this)">♛ Reina 1</button>
-                <button id="btn2" class="active" onclick="selectQueen('2', this)">♕ Reina 2</button>
-                <button id="btn3" onclick="selectQueen('3', this)">♚ Reina 3</button>
-            </div>
-        </div>
+  <h1>Juego de las 8 Reinas</h1>
 
-        <div class="controls">
-            <h3>Personalizar colores del tablero:</h3>
-            <div class="color-controls">
-                <div class="color-item">
-                    <label>Color claro:</label>
-                    <input type="color" id="color1" value="#eeeed2" onchange="updateColors()">
-                </div>
-                <div class="color-item">
-                    <label>Color oscuro:</label>
-                    <input type="color" id="color2" value="#769656" onchange="updateColors()">
-                </div>
-            </div>
-            <button class="reset-btn" onclick="resetBoard()">🔄 Reiniciar Tablero</button>
-        </div>
+  <!-- Mensaje de victoria -->
+  <div class="win-msg" id="winMsg">
+    <span class="win-title">¡Ganaste!</span>
+    <span class="win-sub">¡Ninguna reina se ataca!</span>
+  </div>
+
+  <div class="main-layout">
+
+    <!-- TABLERO -->
+    <div class="board-section">
+      <div class="col-labels" id="colLabels"></div>
+      <div id="board"></div>
     </div>
 
-    <script src="js/functions.js"></script>
+    <!--PANEL LATERAL -->
+    <div class="panel">
+
+       <!-- Botón reiniciar -->
+      <button class="reset-btn" onclick="resetBoard()"> Reiniciar tablero</button>
+
+      <!-- Contador -->
+      <div class="card">
+        <div class="card-title">Progreso</div>
+        <div class="counter">
+          <span class="num" id="queenCount">0</span>
+          <span class="den">/ 8</span>
+          <div class="counter-sub">Reinas colocadas</div>
+        </div>
+
+        <!-- Barra de progreso -->
+        <div class="progress-track">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <!-- Selector de tema -->
+      <div class="card">
+        <div class="card-title">Tema</div>
+        <div class="theme-buttons">
+          <button class="theme-btn active"
+            onclick="setTheme('bee', this)"
+            title="Abeja">
+                🐝<span>Abeja</span>
+          </button>
+
+          <button class="theme-btn"
+            onclick="setTheme('sweet', this)"
+            title="Dulce">
+                🧁<span>Postre</span>
+          </button>
+
+          <button class="theme-btn"
+            onclick="setTheme('cloud', this)"
+            title="Nube">
+                ☁️<span>Nube</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Soluciones -->
+      <div class="card">
+        <div class="card-title">Soluciones</div>
+        <p class="card-hint">Haz clic para ver una solución válida</p>
+        <div class="solutions-list">
+          <button class="sol-btn" onclick="applySolution([0,4,7,5,2,6,1,3])">
+            <span class="sol-num">1</span> Solución clásica
+          </button>
+          <button class="sol-btn" onclick="applySolution([0,5,7,2,6,3,1,4])">
+            <span class="sol-num">2</span> Solución espejo
+          </button>
+          <button class="sol-btn" onclick="applySolution([0,6,3,5,7,1,4,2])">
+            <span class="sol-num">3</span> Solución diagonal
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/functions.js"></script>
 </body>
 </html>
