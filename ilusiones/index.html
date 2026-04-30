@@ -1,14 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="js/functions.js"></script>
-    <title>Ilusiones Ópticas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Museo de Ilusiones Ópticas</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link 
+  href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Lilita+One&display=swap" 
+  rel="stylesheet"
+  >
 </head>
-<body onload="horizontales(); verticales()">
-    <canvas id="canva1"></canvas>
-    <canvas id="canva2"></canvas>
-    <canvas id="canva3"></canvas>
+<body>
+
+  <div class="gallery">
+
+    <!-- HEADER -->
+    <header class="gallery-header">
+      <div class="star">★</div>
+      <h1 class="gallery-title">Museo de Ilusiones Ópticas</h1>
+      <p class="gallery-subtitle" id="room-label"></p>
+      <div class="wiggly-line"></div>
+    </header>
+
+    <!-- NAVEGACIÓN DE SALAS -->
+    <nav class="room-nav">
+      <button class="room-btn active" onclick="changeRoom(1)">Sala 1</button>
+      <button class="room-btn" onclick="changeRoom(2)">Sala 2</button>
+      <button class="room-btn" onclick="changeRoom(3)">Sala 3</button>
+    </nav>
+
+    <!-- GRID DE OBRAS -->
+    <div class="artworks-grid" id="grid"></div>
+
+  </div>
+
+  <script src="js/illusions.js"></script>
+  <script src="js/rooms.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
